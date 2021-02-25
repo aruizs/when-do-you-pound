@@ -15,5 +15,5 @@ RUN venv/bin/pip install -r requirements.txt
 COPY wdoiupound.py boot.sh ./
 
 # run-time configuration
-EXPOSE 5000
+EXPOSE 80
 ENTRYPOINT ["./boot.sh"]
