@@ -1,4 +1,4 @@
-build-and-publish-latest:
+name: build-and-publish-latest
 
 on:
   # Trigger the workflow on push or pull request,
