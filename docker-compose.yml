@@ -1,0 +1,7 @@
+version: '3'
+services:
+  what-do-you-pound:
+    build: .
+    ports:
+      - "8000:5000"
+    restart: always
