@@ -12,6 +12,7 @@ COPY requirements requirements
 RUN python -m venv venv
 RUN venv/bin/pip install -r requirements/docker.txt
 
+COPY app app
 COPY wdoiupound.py boot.sh ./
 
 # run-time configuration
