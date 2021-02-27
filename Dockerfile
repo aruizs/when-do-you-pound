@@ -8,9 +8,9 @@ USER wdoiupound
 
 WORKDIR /home/wdoiupound
 
-COPY requirements.txt requirements.txt
+COPY requirements requirements
 RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
+RUN venv/bin/pip install -r requirements/docker.txt
 
 COPY wdoiupound.py boot.sh ./
 
