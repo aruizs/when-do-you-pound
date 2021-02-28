@@ -16,5 +16,5 @@ COPY app app
 COPY wdoiupound.py boot.sh ./
 
 # run-time configuration
-EXPOSE 80
+EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]

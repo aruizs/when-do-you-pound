@@ -3,5 +3,5 @@ services:
   what-do-you-pound:
     build: .
     ports:
-      - "8000:5000"
+      - "80:5000"
     restart: always
