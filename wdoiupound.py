@@ -1,4 +1,12 @@
-import os
-from app import create_app
+from flask import Flask
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return "<h1>Hello World!</h1>"
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
