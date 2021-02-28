@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,3 +20,19 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
         image-name: when-do-you-pound # Provide only Docker image name, tag will be automatically set to latest
         dockerfile: Dockerfile
+  cd:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Production deployment
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd ${{ secrets.PATH }}
+          docker-compose pull
+          docker-compose up -d
