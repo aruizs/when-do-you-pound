@@ -33,6 +33,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
+          echo ${{ secrets.PACKAGES_TOKEN }} | docker login --username ${{ secrets.PACKAGES_USER }} --password-stdin
           cd ${{ secrets.PATH }}
           docker-compose pull
           docker-compose up -d
