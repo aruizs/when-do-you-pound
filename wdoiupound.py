@@ -17,13 +17,13 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['MAIL_SERVER'] = 'smtp.googleemail.com'
+app.config['MAIL_SERVER'] = 'stmp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['WDOIUPOUND_MAIL_SUBJECT_PREFIX'] = '[Wdoiupound]'
-app.config['WDOIUPOUND_MAIL_SENDER'] = 'Wdoiupound Admin <wdoiupound@example.com>'
+app.config['WDOIUPOUND_MAIL_SENDER'] = 'Wdoyoupound Admin <wdoiupound@example.com>'
 app.config['WDOIUPOUND_ADMIN'] = os.environ.get('WDOIUPOUND_ADMIN')
 
 bootstrap = Bootstrap(app)
@@ -58,13 +58,13 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 
-def send_mail(to, subject, template, **kwargs):
+def send_email(to, subject, template, **kwargs):
     msg = Message(app.config['WDOIUPOUND_MAIL_SUBJECT_PREFIX'] + ' ' + subject,
                   sender=app.config['WDOIUPOUND_MAIL_SENDER'], recipients=[to])
     msg.body = render_template(template + '.txt', **kwargs)
     msg.html = render_template(template + '.html', **kwargs)
     thr = Thread(target=send_async_email, args=[app, msg])
-    thr.start(msg)
+    thr.start()
     return thr
 
 
@@ -99,8 +99,8 @@ def index():
             db.session.commit()
             session['known'] = False
             if app.config['WDOIUPOUND_ADMIN']:
-                send_mail(app.config['WDOIUPOUND_ADMIN'], 'New User',
-                          'mail/new_user', user=user)
+                send_email(app.config['WDOIUPOUND_ADMIN'], 'New User',
+                           'mail/new_user', user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
